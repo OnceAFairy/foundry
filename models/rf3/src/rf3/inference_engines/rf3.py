@@ -9,6 +9,7 @@ from typing import TextIO
 import pandas as pd
 import torch
 import torch.distributed as dist
+from atomworks.enums import ChainType
 from atomworks.io.utils.io_utils import to_cif_file
 from atomworks.ml.preprocessing.msa.finding import (
     get_msa_depth_and_ext_from_folder,
@@ -301,7 +302,8 @@ class RF3InferenceEngine(BaseInferenceEngine):
                     "atomized": template_noise_scale,
                     "not_atomized": template_noise_scale,
                 },
-                "allowed_chain_types_for_conditioning": None,
+                "allowed_chain_types_for_conditioning": ChainType.get_all_types(),
+                "p_condition_per_token": 1.0,
                 "protein_msa_dirs": [
                     {
                         "dir": msa_dir,
